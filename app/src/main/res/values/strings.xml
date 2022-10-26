@@ -7,4 +7,6 @@
     <string name="username">Username</string>
     <string name="sign_in">Sign In</string>
     <string name="clicked">Clicked</string>
+    <string name="content_description">content_description</string>
+    <string name="not_implemented">Not Implemented</string>
 </resources>

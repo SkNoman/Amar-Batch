@@ -1,9 +1,11 @@
 package com.example.amarbatch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.amarbatch.ui.Login
 
+
+var token = ""
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //setTheme(R.style.Theme_AmarBatch)
@@ -15,5 +17,9 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.frameLayout,login)
             commit()
         }
+
+
+
+
     }
 }
