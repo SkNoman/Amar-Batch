@@ -1,5 +1,7 @@
 package com.example.amarbatch.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.amarbatch.R
+import com.example.amarbatch.Utils.Constant
 import com.example.amarbatch.databinding.FragmentLoginBinding
 import com.example.amarbatch.token
 import com.google.firebase.messaging.FirebaseMessaging
@@ -61,7 +64,14 @@ class Login : Fragment() {
     }
 
     private fun googleLogin() {
-        Toast.makeText(requireContext(),getString(R.string.not_implemented),Toast.LENGTH_SHORT).show()
+ /*       val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val webView = WebView()
+        transaction?.replace(R.id.frameLayout,webView)
+        transaction?.disallowAddToBackStack()
+        transaction?.commit()*/
+        val openManual = Intent(Intent.ACTION_VIEW)
+        openManual.data = Uri.parse(Constant.APEX_LOGIN_URL)
+        startActivity(openManual)
     }
 
     private fun facebookLogin() {
