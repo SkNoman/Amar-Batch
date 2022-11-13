@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.amarbatch.R
-import com.example.amarbatch.Utils.Constant
+import com.example.amarbatch.utils.Constant
 import com.example.amarbatch.databinding.FragmentLoginBinding
 import com.example.amarbatch.token
 import com.google.firebase.messaging.FirebaseMessaging

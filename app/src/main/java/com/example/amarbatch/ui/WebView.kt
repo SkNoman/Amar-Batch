@@ -7,9 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import androidx.activity.OnBackPressedCallback
-import com.example.amarbatch.R
-import com.example.amarbatch.databinding.FragmentLoginBinding
 import com.example.amarbatch.databinding.FragmentWebViewBinding
 
 class WebView : Fragment() {
