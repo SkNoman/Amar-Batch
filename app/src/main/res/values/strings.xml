@@ -9,4 +9,8 @@
     <string name="clicked">Clicked</string>
     <string name="content_description">content_description</string>
     <string name="not_implemented">Not Implemented</string>
+    <string name="phone">Phone</string>
+    <string name="sww">Something went wrong</string>
+    <string name="thankyou">\"Thank You, \"</string>
+    <string name="wrong_credentials">Wrong Credentials</string>
 </resources>

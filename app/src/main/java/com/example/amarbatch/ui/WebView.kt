@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import com.example.amarbatch.databinding.FragmentWebViewBinding
+import com.example.amarbatch.utils.Constant
 
 class WebView : Fragment() {
     private lateinit var v: FragmentWebViewBinding
@@ -21,7 +22,7 @@ class WebView : Fragment() {
         v = FragmentWebViewBinding.inflate(inflater, container, false)
         v.apply {
             webView.webViewClient = WebViewClient()
-            webView.loadUrl("https://apex.oracle.com/pls/apex/r/noman_live_schema/amar-batch/login?")
+            webView.loadUrl(Constant.AMAR_BATCH_HOME_PAGE_URL)
             webView.settings.javaScriptEnabled = true
             webView.settings.setSupportZoom(true)
         }
