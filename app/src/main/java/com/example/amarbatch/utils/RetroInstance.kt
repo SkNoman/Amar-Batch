@@ -12,8 +12,8 @@ object RetroInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    val api: Login.MyApiInterface by lazy {
-        retrofit.create(Login.MyApiInterface::class.java)
+    val api: APIInterface by lazy {
+        retrofit.create(APIInterface::class.java)
     }
 }
 

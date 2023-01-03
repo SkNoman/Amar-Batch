@@ -1,6 +1,5 @@
 package com.example.amarbatch.ui
 
-import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -9,26 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.amarbatch.R
 import com.example.amarbatch.databinding.FragmentLoginBinding
-import com.example.amarbatch.model.LoginResponse
-import com.example.amarbatch.network.ApiEndpoint
 import com.example.amarbatch.token
 import com.example.amarbatch.utils.Constant
 import com.example.amarbatch.viewmodel.LoginViewModel
 import com.google.firebase.messaging.FirebaseMessaging
-import retrofit2.Call
-import retrofit2.http.GET
 
 
 class Login : Fragment() {
 
     private lateinit var v: FragmentLoginBinding
-    private var isLocationPermissionGiven = false
+    private var isLocationPermissionGiven = true
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,31 +30,6 @@ class Login : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         v = FragmentLoginBinding.inflate(inflater, container, false)
-
-        val locationPermissionRequest = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                   isLocationPermissionGiven = true
-                }
-                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                  isLocationPermissionGiven = true
-                } else -> {
-                Toast.makeText(requireContext(),"Location permission required!",Toast.LENGTH_LONG).show()
-                isLocationPermissionGiven = false
-            }
-            }
-        }
-
-// ...
-
-// Before you perform the actual permission request, check whether your app
-// already has the permissions, and whether your app needs to show a permission
-// rationale dialog. For more details, see Request permissions.
-        locationPermissionRequest.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION))
 
         v.apply {
             btnLogin.setOnClickListener {
@@ -109,10 +78,6 @@ class Login : Fragment() {
         return true
     }
 
-    interface MyApiInterface {
-        @GET(ApiEndpoint.GET_LOGIN_DATA_BY_PHONE+"01608983444")
-        fun getUserCredential(): Call<LoginResponse>
-    }
     private fun generalLogin() {
      v.progressBar.visibility = View.VISIBLE
      val viewModel: LoginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
