@@ -33,13 +33,18 @@ class Login : Fragment() {
 
         v.apply {
             btnLogin.setOnClickListener {
-                if (loginValidation()){
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                val webView = WebView()
+                transaction?.replace(R.id.frameLayout,webView)
+                transaction?.disallowAddToBackStack()
+                transaction?.commit()
+             /*   if (loginValidation()){
                     if (isLocationPermissionGiven){
                         generalLogin()
                     }else{
                         Toast.makeText(requireContext(),"Location permission required!",Toast.LENGTH_LONG).show()
                     }
-                }
+                }*/
             }
             ivFacebook.setOnClickListener{
                 facebookLogin()

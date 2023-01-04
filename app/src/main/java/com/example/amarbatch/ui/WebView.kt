@@ -4,12 +4,16 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.GeolocationPermissions
+import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.amarbatch.R
 import com.example.amarbatch.databinding.FragmentWebViewBinding
 import com.example.amarbatch.utils.Constant
 import com.example.amarbatch.utils.FusedLocation
@@ -35,17 +39,45 @@ class WebView : Fragment() {
         v = FragmentWebViewBinding.inflate(inflater, container, false)
         v.apply {
             webView.webViewClient = WebViewClient()
-            webView.loadUrl(Constant.AMAR_BATCH_HOME_PAGE_URL)
+            webView.loadUrl(Constant.AMAR_BACH_APEX_MAP_PAGE_URL)
             webView.settings.javaScriptEnabled = true
+            webView.settings.setGeolocationEnabled(true)
             webView.settings.setSupportZoom(true)
+
+            webView.webChromeClient = object : WebChromeClient(){
+                override fun onGeolocationPermissionsShowPrompt(
+                    origin: String?,
+                    callback: GeolocationPermissions.Callback?
+                ) {
+                    showPermissionDialog(origin,callback)
+                }
+            }
         }
         return v.root
     }
+
+    private fun showPermissionDialog(origin: String?, callback: GeolocationPermissions.Callback?) {
+        val permissionDialog = AlertDialog.Builder(requireContext())
+            .setIcon(R.drawable.ic_baseline_not_listed_location_24)
+            .setTitle("Location Permission")
+            .setMessage("Need to access your location. Allow access?\n\n " +
+                    "->CLICK RIGHT CORNER BELOW")
+            .setPositiveButton("Allow") { _, _ ->
+                callback!!.invoke(origin, true, false)
+            }
+            .setNegativeButton("Deny") { _, _ ->
+                callback!!.invoke(origin, false, false)
+            }
+            .create()
+        permissionDialog.show()
+        permissionDialog.setCancelable(false)
+    }
+
+
     override fun onResume() {
         handler.postDelayed(Runnable {
             handler.postDelayed(runnable!!, delay.toLong())
             getLatLong()
-            //Toast.makeText(requireContext(), "This method will run every 10 seconds", Toast.LENGTH_SHORT).show()
         }.also { runnable = it }, delay.toLong())
         super.onResume()
     }
@@ -59,9 +91,9 @@ class WebView : Fragment() {
             lat = location.first
             long = location.second
             Log.d("nlogLatitude,Longitude", "Lat: ${location.first}, Long: ${location.second}")
-
             val viewModel: LocationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]
 
+            //val random = (90..100).random()
             val jsonObj = JsonObject()
             jsonObj.addProperty("id",61)
             jsonObj.addProperty("lat", lat)
@@ -75,6 +107,5 @@ class WebView : Fragment() {
                     Log.e("nlogError","failed")
                 }
             }
-
     }
 }
